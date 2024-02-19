@@ -1,0 +1,197 @@
+// ignore_for_file: prefer_const_constructors
+
+import "dart:io";
+
+import "package:cloud_firestore/cloud_firestore.dart";
+import "package:dob_input_field/dob_input_field.dart";
+import "package:firebase_auth/firebase_auth.dart";
+import 'package:flutter/cupertino.dart';
+import "package:flutter/material.dart";
+import "package:google_fonts/google_fonts.dart";
+
+class AnonymPage extends StatefulWidget {
+  const AnonymPage({super.key});
+
+  @override
+  State<AnonymPage> createState() => _AnonymPageState();
+}
+
+class _AnonymPageState extends State<AnonymPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _anonymController = TextEditingController();
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _emailController.dispose();
+    _anonymController.dispose();
+
+    super.dispose();
+  }
+
+  Future signUp() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim());
+
+    // addUserDetails(
+    //   _anonymController.text.trim(),
+    //   _surnameController.text.trim(),
+    //   _emailController.text.trim(),
+    //   _passwordController.text.trim(),
+    //   _ageController.text.trim(),
+    //   _genderController.text.trim(),
+    // );
+  }
+
+  Future addUserDetails(String name, String surname, String anonym, int age,
+      String gender) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'name': name,
+      'surname': surname,
+      'anonym': anonym,
+      'gender': gender,
+      'age': age,
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.grey[300],
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 60,
+                  ),
+                  //logo
+                  Text(
+                    'SAFELY',
+                    style: GoogleFonts.montserrat(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Use anonym nickname for your privacy',
+                    style: GoogleFonts.montserrat(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple),
+                  ),
+
+                  SizedBox(
+                    height: 30,
+                  ),
+
+                  //email
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: TextField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                              border: InputBorder.none, hintText: "Email"),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  //password
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: TextField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              border: InputBorder.none, hintText: "Password"),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: TextField(
+                          controller: _anonymController,
+                          decoration: InputDecoration(
+                              border: InputBorder.none, hintText: "Nickname"),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+
+                  //sign in
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Center(
+                          child: TextButton(
+                        onPressed: () {
+                          signUp();
+                        },
+                        child: Text(
+                          "Sign up",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  //register now
+                ],
+              ),
+            ),
+          ),
+        ));
+  }
+}

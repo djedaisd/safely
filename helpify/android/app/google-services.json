@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "882793678109",
+    "project_id": "safely-83bae",
+    "storage_bucket": "safely-83bae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882793678109:android:160628f94a3f0ceeb14df4",
+        "android_client_info": {
+          "package_name": "com.example.helpify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxndOllTvv-WNN6Bc3J1zB3vTPbE7o8yk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
