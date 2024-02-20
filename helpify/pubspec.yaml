@@ -44,6 +44,7 @@ dependencies:
   dob_input_field: ^1.0.0
   iconsax_flutter: ^1.0.0
   get: ^4.6.5
+  google_nav_bar: ^5.0.6
 
 dev_dependencies:
   flutter_test:

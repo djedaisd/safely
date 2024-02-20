@@ -2,8 +2,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'package:helpify/util/emotions.dart';
+import 'package:helpify/util/exercise.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,12 +20,49 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[800],
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '')
-        ],
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+      //     BottomNavigationBarItem(icon: Icon(Icons.chat), label: ''),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: '')
+      //   ],
+      // ),
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 20,
+          ),
+          child: GNav(
+              backgroundColor: Colors.white,
+              color: Colors.black,
+              activeColor: Colors.black,
+              tabBackgroundColor: Colors.grey,
+              gap: 8,
+              padding: EdgeInsets.all(16),
+              onTabChange: (index) {
+                print(index);
+              },
+              tabs: const [
+                GButton(
+                  icon: Icons.home,
+                  text: 'home',
+                ),
+                GButton(
+                  icon: Icons.newspaper,
+                  text: 'news',
+                ),
+                GButton(
+                  icon: Icons.chat,
+                  text: 'chat',
+                ),
+                GButton(
+                  icon: Icons.person,
+                  text: 'profile',
+                ),
+              ]),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -188,7 +227,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(25),
-                color: Colors.grey[300],
+                color: Colors.grey[200],
                 child: Center(
                   child: Column(
                     children: [
@@ -203,12 +242,40 @@ class _HomePageState extends State<HomePage> {
                           Icon(Icons.more_horiz),
                         ],
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       //list of exercises'
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: ListTile(leading: Icon(Icons.favorite)),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            ExerciseTitle(
+                              icon: Icons.favorite,
+                              numberOfExercices: 16,
+                              exerciseName: 'Speaking Skills',
+                              color: Colors.red,
+                            ),
+                            ExerciseTitle(
+                              icon: Icons.man,
+                              numberOfExercices: 12,
+                              exerciseName: 'Understanding Self-Confidence',
+                              color: Colors.deepPurple,
+                            ),
+                            ExerciseTitle(
+                              icon: Icons.emoji_emotions_rounded,
+                              numberOfExercices: 16,
+                              exerciseName: 'Labeling Your Emotions',
+                              color: Colors.orange,
+                            ),
+                            ExerciseTitle(
+                              icon: Icons.work,
+                              numberOfExercices: 15,
+                              exerciseName:
+                                  'Depressive Thought Worksheet for Teens',
+                              color: Colors.blue,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
